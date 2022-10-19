@@ -9,6 +9,16 @@ if [ -z "$SCID" ]; then
   fi
 fi
 
+
+# 设置环境变量：
+# 1，tool python 的存放路径
+# 2，tool tgen 的路径
+# 3，tool python 可执行文件的路径
+# 4，tool tcl85 可执行文件的路径
+# 5，tool tcl84 可执行文件的路径
+
+
+
 if [ "$SCID_PYTHON_BIN" != "" ]; then
     echo "USING Python From $SCID_PYTHON_BIN"
 elif [ "$SPYTEST_PYTHON_VERSION" = "3.6.6" ]; then
