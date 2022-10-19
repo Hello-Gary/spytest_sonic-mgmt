@@ -55,3 +55,7 @@ if [ ! -d $SCID_TCL85_BIN ]; then
 fi
 export SCID_TCL84_BIN=$SCID/tools/tcl/8.4.20/bin
 
+
+# The additional information
+# 按需，设置 IXNETWORK_VERSION 和 HLAPI_VERSION 环境变量
+
