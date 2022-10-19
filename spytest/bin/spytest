@@ -2,8 +2,12 @@
 
 ''':'
 export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+## 在当前 shell 的进程中，用当前目录下的 python 解释工具，运行带有参数 ‘$@’ 的命令 ‘$0’
 exec $(dirname $0)/python "$0" "$@"
 '''
+
+## 以下是 python 脚本，当使用 python 解释工具，运行 spytest 脚本的时候，执行下面的内容。
 
 import os, re, sys, warnings
 
@@ -22,12 +26,18 @@ if __name__ == '__main__':
           arg_list.append("'{}'".format(arg))
       else:
           arg_list.append(arg)
+
+# 将调用命令所携带的参数，保存到环境变量 "SPYTEST_CMDLINE_ARGS" 中
   os.environ["SPYTEST_CMDLINE_ARGS"] = " ".join(arg_list)
+  
+# 扩展参数
   sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
   sys.argv.insert(1, "-c")
   sys.argv.insert(2, os.path.join(root, "spytest", "pytest.ini"))
   sys.argv.extend(["-p", "spytest.splugin"])
   
   os.chdir(os.path.join(root, "tests"))
+  
+# 导入模块 spytest.main 中的 main function
   from spytest.main import main
   sys.exit(main())
