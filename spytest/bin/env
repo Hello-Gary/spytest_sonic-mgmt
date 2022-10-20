@@ -58,4 +58,6 @@ export SCID_TCL84_BIN=$SCID/tools/tcl/8.4.20/bin
 
 # The additional information
 # 按需，设置 IXNETWORK_VERSION 和 HLAPI_VERSION 环境变量
+export IXNETWORK_VERSION=9.20.2199.45
+export HLAPI_VERSION=9.20.2199.16
 
