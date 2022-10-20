@@ -12,19 +12,34 @@ import spytest.env as env
 
 import utilities.common as utils
 
+# 显示横幅的内容
+'''
+ ____  ____       _____         _
+/ ___||  _ \ _   |_   _|__  ___| |_
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/
+'''
 def _banner():
     result = pyfiglet.figlet_format("SPyTest")
     print(result)
 
+# 显示当前所用 source code 的 branch 名称及 commitID
+# VERSION: master e3258fe13ae054246c67980af7acf5174df935c3
 def _print_git_ver():
     sha = get_git_ver()
     print("\nVERSION: {}\n".format(sha))
 
+# 解析命令行参数
 def _parse_args(pre_parse=False):
 
+# 建立一个 argparse.ArgumentParser 对象的实例化
     # pytest hack to let it wotk with absolute paths for testbed and tclist
     parser = argparse.ArgumentParser(description='Process SpyTest arguments.',
                                      add_help=False)
+
+# 添加参数
     if pre_parse:
         parser.add_argument("--args-file", action="store", default=None,
                             help="spytest arguments from file path")
@@ -66,6 +81,7 @@ def _parse_args(pre_parse=False):
     parser.add_argument("--augment-modules-csv", action="append", default=[], nargs="*",
                         help="Add additional lines to modules.csv")
 
+# 解析参数，并分别存储已声明的，和未声明的
     args, unknown = parser.parse_known_args()
 
     # parse the bucket options
@@ -126,6 +142,7 @@ def _parse_args(pre_parse=False):
 
         return _parse_args()
 
+# 重置变量 ‘’ 中的参数，保留命令及未声明的参数
     sys.argv = [sys.argv[0]]
     sys.argv.extend(unknown)
 
@@ -143,16 +160,21 @@ def _parse_args(pre_parse=False):
         os.environ["SPYTEST_TESTBED_FILE"] = args.testbed_file
     if args.tclist_file:
         os.environ["SPYTEST_TCLIST_FILE"] = ",".join(args.tclist_file)
+
+# 建立与 log 相关的环境变量 "SPYTEST_LOGS_PATH" "SPYTEST_LOGS_LEVEL"，并赋值
     if args.logs_path:
         os.environ["SPYTEST_LOGS_PATH"] = args.logs_path
     os.environ["SPYTEST_LOGS_LEVEL"] = args.logs_level
 
+# 向环境变量 "SPYTEST_OPENCONFIG_API" 赋值
     if args.open_config_api:
         os.environ["SPYTEST_OPENCONFIG_API"] = args.open_config_api
 
+# 向环境变量 "SPYTEST_TEST_PATHS" 赋值
     if args.test_paths:
         os.environ["SPYTEST_TEST_PATHS"] = ",".join(args.test_paths)
 
+# 向环境变量 "SPYTEST_FILE_PREFIX" 赋值
     prefix=""
     prefix="results"
     if args.results_prefix:
@@ -175,6 +197,7 @@ def _parse_args(pre_parse=False):
     addl_args = parse_batch_args(args.numprocesses, tclist_bucket, args.augment_modules_csv)
     sys.argv.extend(addl_args)
 
+# 生成随机数，并将其存储到环境变量 ‘SPYTEST_RAMDOM_SEED’ 中。
     seed = utils.get_random_seed()
     print("SPYTEST_RAMDOM_SEED used = {}".format(seed))
     return args
