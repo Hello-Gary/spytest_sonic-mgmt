@@ -200,6 +200,13 @@ def _parse_args(pre_parse=False):
 # 生成随机数，并将其存储到环境变量 ‘SPYTEST_RAMDOM_SEED’ 中。
     seed = utils.get_random_seed()
     print("SPYTEST_RAMDOM_SEED used = {}".format(seed))
+
+'''
+参数：sys.argv，采用数据类型-列表 [] 的方式存储；
+参数：os.environ, 采用数据类型-字典 {} 的方式存储；
+参数：args，采用数据类型-元组 () 的方式存储；
+'''
+
     return args
 
 def main(silent=False):
