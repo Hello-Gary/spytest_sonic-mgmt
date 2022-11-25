@@ -112,6 +112,7 @@ def ftrace_prefix(prefix, *args):
 def ftrace(*args):
     ftrace_prefix("ftrace", *args)
 
+##The switch of tracking the debug log
 dtrace_dbg = False
 def dtrace(*args):
     if not dtrace_dbg: return
