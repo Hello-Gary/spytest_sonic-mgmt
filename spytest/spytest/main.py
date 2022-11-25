@@ -215,6 +215,10 @@ def main(silent=False):
     _parse_args(True)
     if not silent:
         _print_git_ver()
+'''
+The pytest module is from the ActivPython 'ActivPython/2.7.14/lib/python2.7/site-packages'.
+Review the pytest.py module, the pytest.main() -> '__init__.py' from the module '_pytest.config' 
+'''
     retval = pytest.main()
     return retval
 
