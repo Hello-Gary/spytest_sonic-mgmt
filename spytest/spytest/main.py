@@ -217,7 +217,12 @@ def main(silent=False):
         _print_git_ver()
 '''
 The pytest module is from the ActivPython 'ActivPython/2.7.14/lib/python2.7/site-packages'.
-Review the pytest.py module, the pytest.main() -> '__init__.py' from the module '_pytest.config' 
+Review the pytest.py module, the pytest.main() -> 'main' from the module '_pytest.config'.
+'main' -> '__init__.py' in the directory '_pytest/config'.
+    config = _prepareconfig ...
+    config.hook.pytest_cmdline_main ...
+        'pytest_cmdline_main' -> _pytest/main.py
+            'wrap_session' -> _pytest/main.py
 '''
     retval = pytest.main()
     return retval
